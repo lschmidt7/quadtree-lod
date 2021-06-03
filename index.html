@@ -9,7 +9,7 @@
 	</head>
 
 	<body onclick="Update()">
-		<canvas id="canvas">
+		<canvas id="canvas" width="600" height="600">
 
 		</canvas>
 		<script>
@@ -25,6 +25,7 @@
 				quadtree = new Quadtree(root,render);
 				Handler.setMousePos(event);
 				quadtree.search(quadtree.root);
+				render.render(quadtree.root);
 			}
 
 		</script>

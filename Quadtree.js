@@ -13,7 +13,6 @@ class Quadtree {
         let p = Handler.mousePos;
         if(quad.size <= 20 || !quad.contain(p))
         {
-            this.render.draw(quad);
             return;
         }
         else

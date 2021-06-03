@@ -4,14 +4,31 @@ class Render {
 
 	constructor(canvas) {
 		this.canvas = document.getElementById(canvas);
-		this.canvas.width = window.innerWidth;
-		this.canvas.height = window.innerHeight;
+		this.width = window.innerWidth;
+		this.height = window.innerHeight;
 		this.ctx = this.canvas.getContext('2d');
 	}
 
 	clear() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.clearRect(0, 0, this.width, this.height);
     }
+
+	render(quad)
+	{
+        if(quad.quadrants[0]==null)
+        {
+			this.draw(quad);
+            return;
+        }
+        else
+        {
+            this.render(quad.quadrants[0]);
+            this.render(quad.quadrants[1]);
+            this.render(quad.quadrants[2]);
+            this.render(quad.quadrants[3]);
+        }
+	}
+
 
 	draw(quad) {
 		let vertices = []
