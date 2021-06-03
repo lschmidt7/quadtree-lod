@@ -24,13 +24,13 @@ class Render {
 		}
 		// DRAW TRIANGLES
 		for (let i = 1; i < vertices.length; i++) {
-			let prox = i+1
-			if(prox>vertices.length-1){
+			let prox = i + 1
+			if(prox > vertices.length - 1){
 				prox = 1;
 			}
-			this.edge(vertices[0],vertices[i]);
-			this.edge(vertices[i],vertices[prox]);
-			this.edge(vertices[prox],vertices[0]);
+			this.edge( vertices[0], vertices[i] );
+			this.edge( vertices[i], vertices[prox] );
+			this.edge( vertices[prox], vertices[0] );
 		}
 	}
 

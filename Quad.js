@@ -2,7 +2,7 @@
 
 class Quad {
 
-	constructor(top_left, bot_right) {
+	constructor(top_left, bot_right,size) {
 		let center = Vec2.mean(bot_right, top_left);
 		this.vertices = [
 			center,								// 0 - CENTER
@@ -20,17 +20,13 @@ class Quad {
 
 		this.quadrants = [];
 
-		this.true = false;
-	}
+		this.size = size;
 
-	size() {
-		return this.vertices[5].sub(this.vertices[1]).x;
 	}
 
 	contain(p) {
 		if (p.x >= this.vertices[1].x && p.x <= this.vertices[5].x) {
 			if (p.y >= this.vertices[1].y && p.y <= this.vertices[5].y) {
-				console.log("dentro");
 				return true;
 			}
 		}
@@ -39,11 +35,10 @@ class Quad {
 
 	subdivide()
 	{
-		this.leaf = false;
-		this.quadrants.push( new Quad(this.vertices[1],this.vertices[0]) );
-		this.quadrants.push( new Quad(this.vertices[2],this.vertices[4]) );
-		this.quadrants.push( new Quad(this.vertices[8],this.vertices[6]) );
-		this.quadrants.push( new Quad(this.vertices[0],this.vertices[5]) );
+		this.quadrants.push( new Quad(this.vertices[1], this.vertices[0], this.size/2) );
+		this.quadrants.push( new Quad(this.vertices[2], this.vertices[4], this.size/2) );
+		this.quadrants.push( new Quad(this.vertices[8], this.vertices[6], this.size/2) );
+		this.quadrants.push( new Quad(this.vertices[0], this.vertices[5], this.size/2) );
 	}
 
 
