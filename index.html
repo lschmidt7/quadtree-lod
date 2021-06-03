@@ -1,26 +1,30 @@
 <html>
-    <head>
-        
-    </head>
-    <body onclick="Update()">
-        <script src="Handler.js"></script>
-        <script src="Vec2.js"></script>
-        <script src="Quad.js"></script>
-        <script src="Render.js"></script>
-        <canvas id="canvas">
-            
-        </canvas>
-        <script>
-            Handler.init();
-            var render = new Render('canvas');
-            var quad = new Quad(new Vec2(50,50),new Vec2(150,150));
-            render.draw(quad);
 
-            function Update() {
-                Handler.setMousePos(event);
-                quad.contain();
-            }
+	<head>
+		<script src="Handler.js"></script>
+		<script src="Vec2.js"></script>
+		<script src="Quad.js"></script>
+		<script src="Render.js"></script>
+		<script src="Quadtree.js"></script>
+	</head>
 
-        </script>
-    </body>
+	<body onclick="Update()">
+		<canvas id="canvas">
+
+		</canvas>
+		<script>
+			Handler.init();
+			var render = new Render('canvas');
+			var quadtree = new Quadtree(new Quad(new Vec2(100,100), new Vec2(400,400)));
+			render.draw(quadtree.root);
+
+			function Update() {
+				Handler.setMousePos(event);
+				quadtree.root.which_quadrant();
+				render.draw(quadtree.root);
+			}
+
+		</script>
+	</body>
+
 </html>
