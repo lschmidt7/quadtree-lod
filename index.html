@@ -15,7 +15,7 @@
 		<script>
 			Handler.init();
 			var render = new Render('canvas');
-			var root = new Quad(new Vec2(50,50), new Vec2(500,500),450);
+			var root = new Quad(new Vec2(50,50), new Vec2(500,500),450,'tl',null);
 			var quadtree = new Quadtree(root,render);
 
 			render.draw(quadtree.root);

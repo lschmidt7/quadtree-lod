@@ -24,7 +24,6 @@ class Quadtree {
             this.search(quad.quadrants[2]);
             this.search(quad.quadrants[3]);
         }
-        
     }
 
 }
