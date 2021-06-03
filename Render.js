@@ -12,11 +12,12 @@ class Render {
 
     draw(quad)
     {
-        this.vertex(quad.top_left);
-        this.vertex(quad.top_right);
-        this.vertex(quad.bot_left);
-        this.vertex(quad.bot_right);
-        this.vertex(quad.center);
+        for (let i = 0; i < quad.vertices.length; i++) {
+            if(quad.enabled[i])
+            {
+                this.vertex(quad.vertices[i]);
+            }
+        }
     }
 
     vertex(v)

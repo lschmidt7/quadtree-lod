@@ -4,17 +4,22 @@ class Quad {
 
     constructor(top_left,bot_right)
     {
+        let center = Vec2.mean(bot_right, top_left);
         this.vertices = [
-            Vec2.mean(bot_right, top_left),
-            top_left,
-            new Vec2( this.center.x ,top_left.y ),
-            new Vec2(bot_right.x,top_left.y),
-            new Vec2( bot_right.x, this.center.y ),
-            bot_right,
-            new Vec2( this.center.x ,bot_right.y ),
-            new Vec2(top_left.x,bot_right.y),
-            new Vec2( top_left.x, this.center.y )
-        ]
+            center,                                 // CENTER
+            top_left,                               // TOP LEFT
+            new Vec2( center.x ,top_left.y ),       // TOP
+            new Vec2(bot_right.x,top_left.y),       // TOP RIGHT
+            new Vec2( bot_right.x, center.y ),      // RIGHT
+            bot_right,                              // BOTTOM RIGHT
+            new Vec2( center.x ,bot_right.y ),      // BOTTOM
+            new Vec2(top_left.x,bot_right.y),       // BOTTOM LEFT
+            new Vec2( top_left.x, center.y )        // LEFT
+        ];
+
+        this.enabled = [true,true,false,true,false,true,false,true,false];
+
+        this.quadrants = [];
 
         // this.top_left = top_left;
         // this.bot_right = bot_right;
@@ -33,10 +38,11 @@ class Quad {
         return this.bot_right.sub(this.top_left).x;
     }
 
-    contain(p)
+    contain()
     {
-        if(p.x > this.top_left.x && p.x < this.bot_right.x){
-            if(p.y > this.top_left.y && p.y < this.bot_right.y)
+        let p = Handler.mousePos;
+        if(p.x > this.vertices[1].x && p.x < this.vertices[5].x){
+            if(p.y > this.vertices[1].y && p.y < this.vertices[5].y)
             {
                 return true;
             }

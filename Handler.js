@@ -13,7 +13,6 @@ class Handler {
     static setMousePos(event)
     {
         Handler.mousePos = new Vec2(event.clientX,event.clientY);
-        console.log(Handler.mousePos);
     }
 
 }
