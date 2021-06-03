@@ -20,20 +20,11 @@ class Quad {
 
 		this.quadrants = [];
 
-		// this.top_left = top_left;
-		// this.bot_right = bot_right;
-		// this.bot_left = new Vec2(top_left.x,bot_right.y);
-		// this.top_right = new Vec2(bot_right.x,top_left.y);
-		// this.center = Vec2.mean(bot_right, top_left);
-
-		// this.top = new Vec2( this.center.x ,top_left.y );
-		// this.bot = new Vec2( this.center.x ,bot_right.y );
-		// this.left = new Vec2( top_left.x, this.center.y );
-		// this.right = new Vec2( bot_right.x, this.center.y );
+		this.true = false;
 	}
 
 	size() {
-		return this.bot_right.sub(this.top_left).x;
+		return this.vertices[5].sub(this.vertices[1]).x;
 	}
 
 	contain(p) {
@@ -46,8 +37,9 @@ class Quad {
 		return false;
 	}
 
-	subdivide(p)
+	subdivide()
 	{
+		this.leaf = false;
 		this.quadrants.push( new Quad(this.vertices[1],this.vertices[0]) );
 		this.quadrants.push( new Quad(this.vertices[2],this.vertices[4]) );
 		this.quadrants.push( new Quad(this.vertices[8],this.vertices[6]) );

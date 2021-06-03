@@ -3,16 +3,23 @@
 
 class Quadtree {
 
-    constructor(quad)
+    constructor(quad,render)
     {
         this.root = quad;
+        this.render = render;
     }
 
     search(quad) {
         let p = Handler.mousePos;
-        if(quad.contain(p))
+        console.log(quad.size());
+        if(quad.size() <= 20 || !quad.contain(p))
         {
-            quad.subdivide(p);
+            this.render.draw(quad);
+            return;
+        }
+        else
+        {
+            quad.subdivide();
             this.search(quad.quadrants[0]);
             this.search(quad.quadrants[1]);
             this.search(quad.quadrants[2]);

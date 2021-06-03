@@ -15,13 +15,16 @@
 		<script>
 			Handler.init();
 			var render = new Render('canvas');
-			var quadtree = new Quadtree(new Quad(new Vec2(100,100), new Vec2(400,400)));
+			var root = new Quad(new Vec2(50,50), new Vec2(500,500))
+			var quadtree = new Quadtree(root,render);
+
 			render.draw(quadtree.root);
 
 			function Update() {
+				render.clear();
+				quadtree = new Quadtree(root,render);
 				Handler.setMousePos(event);
-				quadtree.root.which_quadrant();
-				render.draw(quadtree.root);
+				quadtree.search(quadtree.root);
 			}
 
 		</script>
