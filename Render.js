@@ -2,10 +2,10 @@
 
 class Render {
 
-	constructor(canvas) {
-		this.canvas = document.getElementById(canvas);
-		this.width = window.innerWidth;
-		this.height = window.innerHeight;
+	constructor(canvasname) {
+		this.canvas = document.getElementById(canvasname);
+		this.width = this.canvas.getAttribute("width");
+		this.height = this.canvas.getAttribute("height");
 		this.ctx = this.canvas.getContext('2d');
 	}
 

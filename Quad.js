@@ -18,9 +18,18 @@ class Quad {
 
 		this.enabled = [true, true, false, true, false, true, false, true, false];
 
-		this.quadrants = [];					// CHILDS    TL, TR, BL, BR
+		this.quadrants = [];			// CHILDS    0 - TL, 1 - TR, 2 - BL, 3 - BR
 
-		this.neighbors = [null,null,null,null];	// NEIGHBORS T, B, L, R
+		this.neighbors = [
+			null,						// 0 - TOP LEFT
+			null,						// 1 - TOP
+			null,						// 2 - TOP RIGHT
+			null,						// 3 - LEFT
+			null,						// 4 - RIGHT
+			null,						// 5 - BOTTOM LEFT
+			null,						// 6 - BOTTOM
+			null,						// 7 - BOTTOM RIGHT
+		];
 
 		this.size = size;
 
@@ -33,44 +42,45 @@ class Quad {
 	}
 
 	setNeighbors()
-	{
+	{	
+		// NEIGHBORS
+		// 0 - TOP LEFT
+		// 1 - TOP
+		// 2 - TOP RIGHT
+		// 3 - LEFT
+		// 4 - RIGHT
+		// 5 - BOTTOM LEFT
+		// 6 - BOTTOM
+		// 7 - BOTTOM RIGHT
+		// QUADRANTS    
+		// 0 - TL, 1 - TR, 2 - BL, 3 - BR
 		if(this.parent != null)
 		{
-			if(this.type == 'br')
-			{
-				if(this.parent.neighbors[1]!=null)
-					this.neighbors[1] = this.parent.neighbors[1].quadrants[1];
-				if(this.parent.neighbors[3]!=null)
-					this.neighbors[3] = this.parent.neighbors[3].quadrants[2];
-				this.neighbors[0] = this.parent.quadrants[1];
-				this.neighbors[2] = this.parent.quadrants[2];
-			}
-			if(this.type == 'bl')
-			{
-				if(this.parent.neighbors[1]!=null)
-					this.neighbors[1] = this.parent.neighbors[1].quadrants[0];
-				if(this.parent.neighbors[2]!=null)
-					this.neighbors[2] = this.parent.neighbors[2].quadrants[3];
-				this.neighbors[0] = this.parent.quadrants[0];
-				this.neighbors[3] = this.parent.quadrants[3];
-			}
 			if(this.type == 'tr')
 			{
-				if(this.parent.neighbors[0]!=null)
-					this.neighbors[0] = this.parent.neighbors[0].quadrants[3];
-				if(this.parent.neighbors[3]!=null)
-					this.neighbors[3] = this.parent.neighbors[3].quadrants[0];
-				this.neighbors[1] = this.parent.quadrants[3];
-				this.neighbors[2] = this.parent.quadrants[0];
+				this.neighbors[0] = this.parent.neighbors[1].quadrants[2];
+				this.neighbors[1] = this.parent.neighbors[1].quadrants[3];
+				this.neighbors[2] = this.parent.neighbors[2].quadrants[5];
+
+				this.neighbors[3] = this.parent.quadrants[0];
+				this.neighbors[4] = this.parent.neighbors[4].quadrants[0];
+
+				this.neighbors[5] = 
+				this.neighbors[6] = 
+				this.neighbors[7] = 
 			}
 			if(this.type == 'tl')
 			{
-				if(this.parent.neighbors[0]!=null)
-					this.neighbors[0] = this.parent.neighbors[0].quadrants[2];
-				if(this.parent.neighbors[2]!=null)
-					this.neighbors[2] = this.parent.neighbors[2].quadrants[1];
-				this.neighbors[1] = this.parent.quadrants[2];
-				this.neighbors[3] = this.parent.quadrants[1];
+				this.neighbors[0] = this.parent.neighbors[0].quadrants[3];
+				this.neighbors[1] = this.parent.neighbors[1].quadrants[2];
+				this.neighbors[2] = this.parent.neighbors[1].quadrants[3];
+
+				this.neighbors[3] = this.parent.neighbors[3].quadrants[1];
+				this.neighbors[4] = this.parent.quadrants[1];
+
+				this.neighbors[5] = this.parent.neighbors[3].quadrants[3];
+				this.neighbors[6] = this.parent.quadrants[2];
+				this.neighbors[7] = this.parent.quadrants[3];
 			}
 		}
 	}

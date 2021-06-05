@@ -3,9 +3,9 @@
 
 class Quadtree {
 
-    constructor(quad,render)
+    constructor(render)
     {
-        this.root = quad;
+        this.root = new Quad(new Vec2(50,50), new Vec2(500,500),450,'tl',null);;
         this.render = render;
     }
 

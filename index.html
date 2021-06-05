@@ -15,15 +15,14 @@
 		<script>
 			Handler.init();
 			var render = new Render('canvas');
-			var root = new Quad(new Vec2(50,50), new Vec2(500,500),450,'tl',null);
-			var quadtree = new Quadtree(root,render);
+			var quadtree = new Quadtree(render);
 
-			render.draw(quadtree.root);
+			render.render(quadtree.root);
 
 			function Update() {
 				render.clear();
-				quadtree = new Quadtree(root,render);
 				Handler.setMousePos(event);
+				quadtree = new Quadtree(render);
 				quadtree.search(quadtree.root);
 				render.render(quadtree.root);
 			}
