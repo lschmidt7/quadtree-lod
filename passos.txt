@@ -1,6 +1,0 @@
-1. verifica em que quadrante está o player
-2. subdivide o quadrante fazendo
-    2.1 ativa os vertices adjacentes do quadrante que estão no subquadrante criado
-    (ex: se o quadrante a ser subdividido é o quadrante norte leste, ativar os vertices
-    superior e direito)
-    2.2 avisa os quadrantes adjacentes ao subquadrante gerado para se dividirem

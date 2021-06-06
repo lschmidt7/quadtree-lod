@@ -2,7 +2,7 @@
 
 class Quad {
 
-	constructor(tl, br, size, type, parent) {
+	constructor(tl, br, size, type, parent, level) {
 		let center = Vec2.mean(br, tl);
 		this.vertices = [
 			center,						// 0 - CENTER
@@ -36,6 +36,10 @@ class Quad {
 		this.type = type;
 
 		this.parent = parent;
+
+		this.leaf = true;
+
+		this.level = level;
 
 	}
 
@@ -139,26 +143,37 @@ class Quad {
 		return false;
 	}
 
+	toSew(){
+		
+		if(this.neighbors[1] != null && !this.neighbors[1].leaf){
+			this.enabled[2] = true;
+		}
+		if(this.neighbors[3] != null && !this.neighbors[3].leaf){
+			this.enabled[8] = true;
+		}
+		if(this.neighbors[4] != null && !this.neighbors[4].leaf){
+			this.enabled[4] = true;
+		}
+		if(this.neighbors[6] != null && !this.neighbors[6].leaf){
+			this.enabled[6] = true;
+		}
+	}
+
 	subdivide()
 	{
-		if(this.neighbors[1] != null)
-			this.neighbors[1].enabled[1] = true;
-		if(this.neighbors[3] != null)
-			this.neighbors[3].enabled[3] = true;	
-		if(this.neighbors[4] != null)
-			this.neighbors[4].enabled[4] = true;
-		if(this.neighbors[6] != null)
-			this.neighbors[6].enabled[6] = true;
+		this.leaf = false;
 
-		this.quadrants.push( new Quad(this.vertices[1], this.vertices[0], this.size/2, 'tl', this) );
-		this.quadrants.push( new Quad(this.vertices[2], this.vertices[4], this.size/2, 'tr', this) );
-		this.quadrants.push( new Quad(this.vertices[8], this.vertices[6], this.size/2, 'bl', this) );
-		this.quadrants.push( new Quad(this.vertices[0], this.vertices[5], this.size/2, 'br', this) );
+		this.quadrants.push( new Quad(this.vertices[1], this.vertices[0], this.size/2, 'tl', this, this.level+1) );
+		this.quadrants.push( new Quad(this.vertices[2], this.vertices[4], this.size/2, 'tr', this, this.level+1) );
+		this.quadrants.push( new Quad(this.vertices[8], this.vertices[6], this.size/2, 'bl', this, this.level+1) );
+		this.quadrants.push( new Quad(this.vertices[0], this.vertices[5], this.size/2, 'br', this, this.level+1) );
 
 		for (let i = 0; i < this.quadrants.length; i++) {
 			this.quadrants[i].setNeighbors();
 		}
 	}
+
+
 
 
 

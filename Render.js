@@ -15,7 +15,7 @@ class Render {
 
 	render(quad)
 	{
-        if(quad.quadrants[0]==null)
+        if(quad.leaf)
         {
 			this.draw(quad);
             return;
@@ -42,7 +42,7 @@ class Render {
 		// DRAW TRIANGLES
 		for (let i = 1; i < vertices.length; i++) {
 			let prox = i + 1
-			if(prox > vertices.length - 1){
+			if(prox >= vertices.length){
 				prox = 1;
 			}
 			this.edge( vertices[0], vertices[i] );

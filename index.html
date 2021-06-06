@@ -24,6 +24,7 @@
 				Handler.setMousePos(event);
 				quadtree = new Quadtree(render);
 				quadtree.search(quadtree.root);
+				quadtree.detail(quadtree.root);
 				render.render(quadtree.root);
 			}
 
