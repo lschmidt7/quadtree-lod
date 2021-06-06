@@ -5,7 +5,7 @@ class Quadtree {
 
     constructor(render)
     {
-        this.root = new Quad(new Vec2(50,50), new Vec2(500,500),450,'tl',null);;
+        this.root = new Quad(new Vec2(0,0), new Vec2(500,500),500,'tl',null);;
         this.render = render;
     }
 
@@ -17,6 +17,11 @@ class Quadtree {
         }
         else
         {
+            for (let i = 0; i < quad.neighbors.length; i++) {
+                if(quad.neighbors[i]!=null)
+                quad.neighbors[i].subdivide();
+            }
+
             quad.subdivide();
             this.search(quad.quadrants[0]);
             this.search(quad.quadrants[1]);
