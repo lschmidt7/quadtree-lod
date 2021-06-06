@@ -9,11 +9,10 @@
 	</head>
 
 	<body onclick="Update()">
-		<canvas id="canvas" width="600" height="600">
+		<canvas id="canvas" class="canvas" width="600" height="600">
 
 		</canvas>
 		<script>
-			var clicks = 0;
 			Handler.init();
 			var render = new Render('canvas');
 			var quadtree = new Quadtree(render);
@@ -21,21 +20,12 @@
 			render.render(quadtree.root);
 
 			function Update() {
-				if(clicks==0){
-					render.clear();
-					Handler.setMousePos(event);
-					quadtree = new Quadtree(render);
-					quadtree.search(quadtree.root);
-					quadtree.detail(quadtree.root);
-					render.render(quadtree.root);
-					clicks++;
-				}
-				else
-				{
-					Handler.setMousePos(event);
-					quadtree.info(quadtree.root);
-				}
-				
+				render.clear();
+				Handler.setMousePos(event);
+				quadtree = new Quadtree(render);
+				quadtree.search(quadtree.root);
+				quadtree.detail(quadtree.root);
+				render.render(quadtree.root);
 			}
 
 		</script>
