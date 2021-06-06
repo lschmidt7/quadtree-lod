@@ -11,7 +11,7 @@ class Quadtree {
 
     search(quad) {
         let p = Handler.mousePos;
-        if(quad.size <= 20 || !quad.inRange(p))
+        if(quad.size <= 20 || !quad.contain(p))
         {
             return;
         }
