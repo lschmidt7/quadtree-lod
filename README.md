@@ -6,8 +6,8 @@
 
 Contain Function
 
-![alt text](https://github.com/lschmidt7/quadtree-lod/blob/master/img/img3.png =250x250)
+<img src="https://github.com/lschmidt7/quadtree-lod/blob/master/img/img3.png" width="300" height="300">
 
 Range Function
 
-![alt text](https://github.com/lschmidt7/quadtree-lod/blob/master/img/img1.png =250x250)
+<img src="https://github.com/lschmidt7/quadtree-lod/blob/master/img/img1.png" width="300" height="300">
