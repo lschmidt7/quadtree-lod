@@ -5,7 +5,7 @@ class Quadtree {
 
     constructor(render)
     {
-        this.root = new Quad(new Vec2(0,0), new Vec2(500,500),500,'tr',null,0);
+        this.root = new Quad(new Vec2(0,0), new Vec2(500,500),500,'tr',null);
         this.render = render;
     }
 
@@ -18,11 +18,13 @@ class Quadtree {
         else
         {
             for (let i = 0; i < quad.neighbors.length; i++) {
-                if(quad.neighbors[i]!=null)
-                quad.neighbors[i].subdivide();
+                if(quad.neighbors[i]!=null){
+                    quad.neighbors[i].subdivide();
+                }
             }
 
             quad.subdivide();
+
             this.search(quad.quadrants[0]);
             this.search(quad.quadrants[1]);
             this.search(quad.quadrants[2]);
@@ -33,6 +35,7 @@ class Quadtree {
     detail(quad){
         if(quad.leaf)
         {
+            quad.setNeighbors();
             quad.toSew();
             return;
         }
@@ -44,5 +47,30 @@ class Quadtree {
             this.detail(quad.quadrants[3]);
         }
     }
+    
+    info(quad){
+        let p = Handler.mousePos;
+        if(quad.leaf)
+        {
+            if(quad.contain(p)){
+                var st = ""
+                for (let i = 0; i < quad.neighbors.length; i++) {
+                    if(quad.neighbors[i]!=null)
+                        this.render.drawColor(quad.neighbors[i]);
+                }
+                return;
+            }
+            return;
+        }
+        else
+        {
+            this.info(quad.quadrants[0]);
+            this.info(quad.quadrants[1]);
+            this.info(quad.quadrants[2]);
+            this.info(quad.quadrants[3]);
+        }
+    }
+
+    
 
 }

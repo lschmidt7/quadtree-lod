@@ -2,7 +2,7 @@
 
 class Quad {
 
-	constructor(tl, br, size, type, parent, level) {
+	constructor(tl, br, size, type, parent) {
 		let center = Vec2.mean(br, tl);
 		this.vertices = [
 			center,						// 0 - CENTER
@@ -39,8 +39,6 @@ class Quad {
 
 		this.leaf = true;
 
-		this.level = level;
-
 	}
 
 	setNeighbors()
@@ -58,41 +56,23 @@ class Quad {
 		// 0 - TL, 1 - TR, 2 - BL, 3 - BR
 		if(this.parent != null)
 		{
-			if(this.type == 'br')
+			if(this.type == 'tl')
 			{
-				this.neighbors[0] = this.parent.quadrants[0];
-				this.neighbors[1] = this.parent.quadrants[1];
-				if(this.parent.neighbors[4]!=null)
-					this.neighbors[2] = this.parent.neighbors[4].quadrants[0];
-
-				this.neighbors[3] = this.parent.quadrants[2];
-				if(this.parent.neighbors[4]!=null)
-					this.neighbors[4] = this.parent.neighbors[4].quadrants[2];
-
-				if(this.parent.neighbors[6]!=null){
-					this.neighbors[5] = this.parent.neighbors[6].quadrants[0];
-					this.neighbors[6] = this.parent.neighbors[6].quadrants[1];
+				if(this.parent.neighbors[0]!=null)
+					this.neighbors[0] = this.parent.neighbors[0].quadrants[3];
+				if(this.parent.neighbors[1]!=null){
+					this.neighbors[1] = this.parent.neighbors[1].quadrants[2];
+					this.neighbors[2] = this.parent.neighbors[1].quadrants[3];
 				}
-				if(this.parent.neighbors[7]!=null)
-					this.neighbors[7] = this.parent.neighbors[7].quadrants[0];
-			}
-			if(this.type == 'bl')
-			{
+				
 				if(this.parent.neighbors[3]!=null)
-					this.neighbors[0] = this.parent.neighbors[3].quadrants[1];
-				this.neighbors[1] = this.parent.quadrants[0];
-				this.neighbors[2] = this.parent.quadrants[1];
+					this.neighbors[3] = this.parent.neighbors[3].quadrants[1];
+				this.neighbors[4] = this.parent.quadrants[1];
 
 				if(this.parent.neighbors[3]!=null)
-					this.neighbors[3] = this.parent.neighbors[3].quadrants[3];
-				this.neighbors[4] = this.parent.quadrants[3];
-
-				if(this.parent.neighbors[5]!=null)
-					this.neighbors[5] = this.parent.neighbors[5].quadrants[1];
-				if(this.parent.neighbors[6]!=null){
-					this.neighbors[6] = this.parent.neighbors[6].quadrants[0];
-					this.neighbors[7] = this.parent.neighbors[6].quadrants[1];
-				}
+					this.neighbors[5] = this.parent.neighbors[3].quadrants[3];
+				this.neighbors[6] = this.parent.quadrants[2];
+				this.neighbors[7] = this.parent.quadrants[3];
 			}
 			if(this.type == 'tr')
 			{
@@ -112,24 +92,45 @@ class Quad {
 				if(this.parent.neighbors[4]!=null)
 					this.neighbors[7] = this.parent.neighbors[4].quadrants[2];
 			}
-			if(this.type == 'tl')
+			if(this.type == 'bl')
 			{
-				if(this.parent.neighbors[0]!=null)
-					this.neighbors[0] = this.parent.neighbors[0].quadrants[3];
-				if(this.parent.neighbors[1]!=null){
-					this.neighbors[1] = this.parent.neighbors[1].quadrants[2];
-					this.neighbors[2] = this.parent.neighbors[1].quadrants[3];
-				}
-				
 				if(this.parent.neighbors[3]!=null)
-					this.neighbors[3] = this.parent.neighbors[3].quadrants[1];
-				this.neighbors[4] = this.parent.quadrants[1];
+					this.neighbors[0] = this.parent.neighbors[3].quadrants[1];
+				this.neighbors[1] = this.parent.quadrants[0];
+				this.neighbors[2] = this.parent.quadrants[1];
 
 				if(this.parent.neighbors[3]!=null)
-					this.neighbors[5] = this.parent.neighbors[3].quadrants[3];
-				this.neighbors[6] = this.parent.quadrants[2];
-				this.neighbors[7] = this.parent.quadrants[3];
+					this.neighbors[3] = this.parent.neighbors[3].quadrants[3];
+				this.neighbors[4] = this.parent.quadrants[3];
+
+				if(this.parent.neighbors[5]!=null)
+					this.neighbors[5] = this.parent.neighbors[5].quadrants[1];
+				if(this.parent.neighbors[6]!=null){
+					this.neighbors[6] = this.parent.neighbors[6].quadrants[0];
+					this.neighbors[7] = this.parent.neighbors[6].quadrants[1];
+				}
 			}
+			if(this.type == 'br')
+			{
+				this.neighbors[0] = this.parent.quadrants[0];
+				this.neighbors[1] = this.parent.quadrants[1];
+				if(this.parent.neighbors[4]!=null)
+					this.neighbors[2] = this.parent.neighbors[4].quadrants[0];
+
+				this.neighbors[3] = this.parent.quadrants[2];
+				if(this.parent.neighbors[4]!=null)
+					this.neighbors[4] = this.parent.neighbors[4].quadrants[2];
+
+				if(this.parent.neighbors[6]!=null){
+					this.neighbors[5] = this.parent.neighbors[6].quadrants[0];
+					this.neighbors[6] = this.parent.neighbors[6].quadrants[1];
+				}
+				if(this.parent.neighbors[7]!=null)
+					this.neighbors[7] = this.parent.neighbors[7].quadrants[0];
+			}
+			
+			
+			
 		}
 	}
 
@@ -162,19 +163,14 @@ class Quad {
 	subdivide()
 	{
 		this.leaf = false;
-
-		this.quadrants.push( new Quad(this.vertices[1], this.vertices[0], this.size/2, 'tl', this, this.level+1) );
-		this.quadrants.push( new Quad(this.vertices[2], this.vertices[4], this.size/2, 'tr', this, this.level+1) );
-		this.quadrants.push( new Quad(this.vertices[8], this.vertices[6], this.size/2, 'bl', this, this.level+1) );
-		this.quadrants.push( new Quad(this.vertices[0], this.vertices[5], this.size/2, 'br', this, this.level+1) );
+		
+		this.quadrants.push( new Quad(this.vertices[1], this.vertices[0], this.size/2, 'tl', this) );
+		this.quadrants.push( new Quad(this.vertices[2], this.vertices[4], this.size/2, 'tr', this) );
+		this.quadrants.push( new Quad(this.vertices[8], this.vertices[6], this.size/2, 'bl', this) );
+		this.quadrants.push( new Quad(this.vertices[0], this.vertices[5], this.size/2, 'br', this) );
 
 		for (let i = 0; i < this.quadrants.length; i++) {
 			this.quadrants[i].setNeighbors();
 		}
 	}
-
-
-
-
-
 }

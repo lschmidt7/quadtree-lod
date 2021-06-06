@@ -13,6 +13,7 @@
 
 		</canvas>
 		<script>
+			var clicks = 0;
 			Handler.init();
 			var render = new Render('canvas');
 			var quadtree = new Quadtree(render);
@@ -20,12 +21,21 @@
 			render.render(quadtree.root);
 
 			function Update() {
-				render.clear();
-				Handler.setMousePos(event);
-				quadtree = new Quadtree(render);
-				quadtree.search(quadtree.root);
-				quadtree.detail(quadtree.root);
-				render.render(quadtree.root);
+				if(clicks==0){
+					render.clear();
+					Handler.setMousePos(event);
+					quadtree = new Quadtree(render);
+					quadtree.search(quadtree.root);
+					quadtree.detail(quadtree.root);
+					render.render(quadtree.root);
+					clicks++;
+				}
+				else
+				{
+					Handler.setMousePos(event);
+					quadtree.info(quadtree.root);
+				}
+				
 			}
 
 		</script>

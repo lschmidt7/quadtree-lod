@@ -67,4 +67,11 @@ class Render {
 		this.ctx.fill();
 	}
 
+	drawColor(quad){
+		this.ctx.beginPath();
+		this.ctx.fillStyle = '#8b0000';
+		this.ctx.rect(quad.vertices[1].x,quad.vertices[1].y, quad.size, quad.size);
+		this.ctx.fill();
+	}
+
 }
