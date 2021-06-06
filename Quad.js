@@ -144,6 +144,14 @@ class Quad {
 		return false;
 	}
 
+	inRange(p) 
+	{
+		if (Vec2.distance(p,this.vertices[0]) < 200) {
+			return true;
+		}
+		return false;
+	}
+
 	toSew(){
 		
 		if(this.neighbors[1] != null && !this.neighbors[1].leaf){
